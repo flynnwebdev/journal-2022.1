@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Home() {
+function Home({ entries }) {
   return (
     <div>Home</div>
   )

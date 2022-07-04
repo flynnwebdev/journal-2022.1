@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-function NewEntry({ entries, setEntries }) {
+function NewEntry({ addEntry }) {
   const { category } = useParams();
   const [entry, setEntry] = useState("")
+  const nav = useNavigate()
+
+  async function submit(e) {
+    e.preventDefault()
+    const id = await addEntry(category, entry)
+    nav(`/entry/${id}`)
+  }
 
   return (
     <>
       <h2>New Entry in {category}</h2>
-      <form className="container" onSubmit={e => e.preventDefault()}>
+      <form className="container" onSubmit={submit}>
         <div>
-          <textarea value={entry} onChange={e => setEntry(e.target.value)} rows="10" className="form-control"></textarea>
+          <textarea required value={entry} onChange={e => setEntry(e.target.value)} rows="10" className="form-control"></textarea>
         </div>
         <button className="btn btn-primary mt-2">Create Entry</button>
       </form>

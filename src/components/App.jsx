@@ -8,7 +8,7 @@ import ShowEntry from "./pages/ShowEntry";
 import StoreContext from "../store";
 import useStore from "../reducer";
 
-const api = process.env.API_ENDPOINT || "http://localhost:4000/api/v1";
+const api = import.meta.env.VITE_API_ENDPOINT || "http://localhost:4000/api/v1";
 
 function App() {
   const [store, dispatch] = useStore()

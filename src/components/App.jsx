@@ -8,13 +8,15 @@ import ShowEntry from "./pages/ShowEntry";
 import StoreContext from "../store";
 import useStore from "../reducer";
 
+const api = process.env.API_ENDPOINT || "http://localhost:4000/api/v1";
+
 function App() {
   const [store, dispatch] = useStore()
   const { entries } = store
 
   useEffect(() => {
     async function getEntries() {
-      const res = await fetch("http://localhost:4000/api/v1/entries");
+      const res = await fetch(`${api}/entries`);
       dispatch({
         type: 'setEntries',
         data: await res.json()
@@ -30,7 +32,7 @@ function App() {
 
   async function addEntry(category, entry) {
     const newEntry = { category, entry }
-    const res = await fetch("http://localhost:4000/api/v1/entries", {
+    const res = await fetch(`${api}/entries`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
